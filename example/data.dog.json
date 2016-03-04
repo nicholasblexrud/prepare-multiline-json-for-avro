@@ -1,5 +1,5 @@
-{"event": "foo", "color": "blue", "age": 22, "ownsDogs": true, "dogs":[{"type": "korgi", "age": 6, "color": "gray"}]}
+{"event": "foo", "color": "blue", "age": 22, "ownsDogs": true, "dogs":[{"type": "korgi", "age": 6, "color": "gray"}], "car": {"type": "chevy", "isAWD": true}}
 {"event": "bar", "color": "red", "ownsDogs": false}
-{"event": "baz", "color": "green", "ownsDogs": false}
+{"event": "baz", "color": "green", "ownsDogs": false, "car": {"type": "ford", "isAWD": false}}
 {"event": "zip", "age": 34, "ownsDogs": true, "dogs":[{"type": "westy", "color": "brown"}, {"type": "golden doodle", "age": 1, "color": "white"}]}
 {"event": "foo", "color": "pink", "age": 55, "ownsDogs": true, "dogs":[{"type": "labra doodle", "age": 2}]}

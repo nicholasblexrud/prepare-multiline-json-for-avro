@@ -7,5 +7,9 @@
         "type": null,
         "age": null,
         "color": null
-    }]
+    }],
+    "car": {
+    	"type": null,
+    	"isAWD": null
+    }
 }

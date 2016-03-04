@@ -2,17 +2,21 @@
 var _ = require('lodash');
 var fs = require('fs');
 var readline = require('readline');
+var path = require('path');
+
+// check command line args
+checkCommandLineArg();
 
 const LINE_BREAK = '\n';
 const IN_JSON_FILE = process.argv[2];
+const IN_JSON_FILE_NAME = path.basename(IN_JSON_FILE);
 const IN_SCHEMA_FILE = process.argv[3];
 const NEW_FILE_PREFIX = 'cleaned_';
 
-var fd = fs.openSync(NEW_FILE_PREFIX + IN_JSON_FILE, 'w');
+const CLEANED_JSON_FILE = fs.openSync(NEW_FILE_PREFIX + IN_JSON_FILE_NAME, 'w');
 var inputSchemaJson = JSON.parse(fs.readFileSync(IN_SCHEMA_FILE, 'utf8'));
 var lineReader = readline.createInterface({
-    input: fs.createReadStream(IN_JSON_FILE),
-    output: process.stdout
+    input: fs.createReadStream(IN_JSON_FILE)
 });
 
 function checkCommandLineArg(number, error) {
@@ -40,7 +44,10 @@ function assignTypeToValue(value, key) {
         return {"float": value};
 
     } else if (_.isArray(value)) {
-        return handleNestedArrayOfObjects(inputSchemaJson[key][0], value);
+        return handleArrayOfObjects(inputSchemaJson[key][0], value);
+
+    } else if (_.isObject(value)) {
+        return wrapObjectValuesWithTypeOrNull(inputSchemaJson[key], value);
 
     } else {
         return value;
@@ -54,23 +61,21 @@ function wrapObjectValuesWithTypeOrNull(defaultObject, object) {
     });
 }
 
-function handleNestedArrayOfObjects(defaultObject, jsonArray) {
+function handleArrayOfObjects(defaultObject, jsonArray) {
     return jsonArray.map(function (object) {
         return wrapObjectValuesWithTypeOrNull(defaultObject, object);
     });
 }
+
 function readLines(line) {
     if (!line) { return; }
 
     var parsed = JSON.parse(line);
     var cleaned = wrapObjectValuesWithTypeOrNull(inputSchemaJson, parsed);
 
-    fs.write(fd, JSON.stringify(cleaned) + LINE_BREAK);
+    fs.write(CLEANED_JSON_FILE, JSON.stringify(cleaned) + LINE_BREAK);
 
 }
-
-// check command line args
-checkCommandLineArg();
 
 // lets convert a file
 lineReader.on('line', readLines);
