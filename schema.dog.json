@@ -1,0 +1,11 @@
+{
+    "event": null,
+    "color": null,
+    "age": null,
+    "ownsDogs": null,
+    "dogs":[{
+        "type": null,
+        "age": null,
+        "color": null
+    }]
+}
