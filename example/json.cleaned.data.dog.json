@@ -1,0 +1,5 @@
+{"event":"foo","color":"blue","age":22,"ownsDogs":true,"dogs":[{"type":"korgi","age":6,"color":"gray"}],"car":{"type":"chevy","isAWD":true}}
+{"event":"bar","color":"red","age":null,"ownsDogs":false,"dogs":[{"type":null,"age":null,"color":null}],"car":{"type":null,"isAWD":null}}
+{"event":"baz","color":"green","age":null,"ownsDogs":false,"dogs":[{"type":null,"age":null,"color":null}],"car":{"type":"ford","isAWD":false}}
+{"event":"zip","color":null,"age":34,"ownsDogs":true,"dogs":[{"type":"westy","age":null,"color":"brown"},{"type":"golden doodle","age":1,"color":"white"}],"car":{"type":null,"isAWD":null}}
+{"event":"foo","color":"pink","age":55,"ownsDogs":true,"dogs":[{"type":"labra doodle","age":2,"color":null}],"car":{"type":null,"isAWD":null}}

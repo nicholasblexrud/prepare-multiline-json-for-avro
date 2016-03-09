@@ -1,12 +1,11 @@
-To run:
+#Prepare Multiline JSON file for AVRO
+This CLI assists in converting a file of stacked JSON (see data.json below) to a format that Avro can use i.e. where missing fields in objects are converted to `null`, and fields containing values are wrapped with a `type`.
 
-```node index.js <data> <schema>```
+**Usage**:
 
-```node index.js data.json schema.json```
+```node index.js -d <data file> -s <schema file> -a <optional avro flag>```
 
-Mult-line JSON file that looks like:
-* notice how each event is missing some data. If an event is to be converted to Avro, the missing fields must be null and the fields that contain values must be wrapped in a type.
-
+_Note: if the `-a` flag is left off, the CLI will convert the file to JSON where all of the fields contain a value or are null_
 
 **data.json**
 ```json
@@ -35,7 +34,7 @@ A schema of what events _should_ look like:
 }
 ```
 
-**results: cleaned_data.json**
+**results: avro.cleaned.data.json**
 
 ```json
 {"event":{"string":"foo"},"color":{"string":"blue"},"age":{"long":22},"ownsDogs":{"boolean":true},"dogs":[{"type":{"string":"korgi"},"age":{"long":6},"color":{"string":"gray"}}]}
@@ -43,5 +42,15 @@ A schema of what events _should_ look like:
 {"event":{"string":"baz"},"color":{"string":"green"},"age":null,"ownsDogs":{"boolean":false},"dogs":[{"type":null,"age":null,"color":null}]}
 {"event":{"string":"zip"},"color":null,"age":{"long":34},"ownsDogs":{"boolean":true},"dogs":[{"type":{"string":"westy"},"age":null,"color":{"string":"brown"}},{"type":{"string":"golden doodle"},"age":{"long":1},"color":{"string":"white"}}]}
 {"event":{"string":"foo"},"color":{"string":"pink"},"age":{"long":55},"ownsDogs":{"boolean":true},"dogs":[{"type":{"string":"labra doodle"},"age":{"long":2},"color":null}]}
+```
+
+**results: json.cleaned.data.json**
+
+```json
+{"event":"foo","color":"blue","age":22,"ownsDogs":true,"dogs":[{"type":"korgi","age":6,"color":"gray"}],"car":{"type":"chevy","isAWD":true}}
+{"event":"bar","color":"red","age":null,"ownsDogs":false,"dogs":[{"type":null,"age":null,"color":null}],"car":{"type":null,"isAWD":null}}
+{"event":"baz","color":"green","age":null,"ownsDogs":false,"dogs":[{"type":null,"age":null,"color":null}],"car":{"type":"ford","isAWD":false}}
+{"event":"zip","color":null,"age":34,"ownsDogs":true,"dogs":[{"type":"westy","age":null,"color":"brown"},{"type":"golden doodle","age":1,"color":"white"}],"car":{"type":null,"isAWD":null}}
+{"event":"foo","color":"pink","age":55,"ownsDogs":true,"dogs":[{"type":"labra doodle","age":2,"color":null}],"car":{"type":null,"isAWD":null}}
 ```
 
