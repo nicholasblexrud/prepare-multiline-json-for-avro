@@ -47,13 +47,16 @@ function assignTypeToValue(value, key) {
             return {"string": value};
 
         } else if (_.isNumber(value)) {
+
+            if (isFloat(value)) {
+                return {"float": value};
+            }
+            
             return {"long": value};
 
         } else if (_.isBoolean(value)) {
             return {"boolean": value};
 
-        } else if (isFloat(value)) {
-            return {"float": value};
         }
     }
 
